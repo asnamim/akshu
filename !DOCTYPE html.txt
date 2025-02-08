@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Love</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-image: url('file-7hQETtBwNaShCfFK4PWzxR.jpg');
+            background-size: cover;
+            font-family: 'Lobster', cursive;
+            text-align: center;
+            position: relative;
+        }
+        h1 {
+            font-size: 3em;
+            color: yellow;
+            text-shadow: 2px 2px 5px red;
+        }
+        .buttons {
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        button {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+        }
+        .yes {
+            background-color: #ff4081;
+            color: white;
+        }
+        .no {
+            background-color: #6200ea;
+            color: white;
+        }
+        .message-box {
+            position: absolute;
+            background-color: rgba(128, 128, 128, 0.9);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            font-size: 1.5em;
+            font-weight: bold;
+            display: none;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            z-index: 3;
+        }
+        .warning-popup {
+            position: fixed;
+            background-color: lightgray;
+            border: 5px solid blue;
+            padding: 30px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: block;
+            z-index: 4;
+        }
+        .kitty-image {
+            position: absolute;
+            width: 150px;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div id="warningPopup" class="warning-popup">
+        <p>WARNING! Click OK to proceed.</p>
+        <button onclick="closeWarning()">OK</button>
+    </div>
+    <div id="content" style="display: none;">
+        <h1>Aksha, will you be my Valentine?</h1>
+        <div class="buttons">
+            <button class="yes" onclick="yesClicked()">Yes</button>
+            <button class="no" onclick="noClicked()">No</button>
+        </div>
+        <div class="message-box" id="message-box"></div>
+    </div>
+    <script>
+        function closeWarning() {
+            document.getElementById("warningPopup").style.display = "none";
+            document.getElementById("content").style.display = "block";
+        }
+
+        let noClickCount = 0;
+        function noClicked() {
+            const messages = [
+                "I think you chose the wrong option.",
+                "Woah Chinki really can't see?",
+                "Wear your glasses.",
+                "Click YES RIGHT NOW or else I'm asking your sister out."
+            ];
+            let messageBox = document.getElementById("message-box");
+            let siren = new Audio('https://www.soundjay.com/police/siren-01.mp3');
+            let kissSound = new Audio('https://www.fesliyanstudios.com/play-mp3/387');
+            let carelessWhisper = new Audio('https://www.myinstants.com/media/sounds/careless-whisper.mp3');
+            
+            if (noClickCount < messages.length - 1) {
+                messageBox.innerText = messages[noClickCount];
+                messageBox.style.display = "block";
+                siren.play();
+                setTimeout(() => { messageBox.style.display = "none"; }, 5000);
+                noClickCount++;
+            } else {
+                messageBox.innerText = "*Loud kissing noises* Careless Whisper playing...";
+                messageBox.style.display = "block";
+                kissSound.play();
+                carelessWhisper.play();
+                setTimeout(() => { messageBox.style.display = "none"; }, 10000);
+                for (let i = 0; i < 10; i++) {
+                    let img = document.createElement('img');
+                    img.src = 'kitty kissi.jpg';
+                    img.classList.add('kitty-image');
+                    img.style.top = Math.random() * window.innerHeight + 'px';
+                    img.style.left = Math.random() * window.innerWidth + 'px';
+                    document.body.appendChild(img);
+                    setTimeout(() => { img.style.opacity = 1; }, 500);
+                }
+            }
+        }
+
+        function yesClicked() {
+            document.body.innerHTML = "<h1>Aww, who's my little kitty?</h1>";
+            let audio = new Audio('https://www.myinstants.com/media/sounds/cat-meow.mp3');
+            audio.play();
+        }
+    </script>
+</body>
+</html>
